@@ -21,6 +21,10 @@ public class Event {
         this.description = description;
     }
 
+    public Event(String name) {
+        this.name = name;
+    }
+
     public void addParticipant(Participant participant) {
         this.participants.add(participant);
     }
@@ -47,5 +51,21 @@ public class Event {
 
     public List<Participant> getParticipants() {
         return participants;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public void setDate(LocalDateTime date) {
+        this.date = date;
+    }
+
+    public void setEventType(EventType eventType) {
+        this.eventType = eventType;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

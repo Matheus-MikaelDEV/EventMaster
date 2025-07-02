@@ -9,11 +9,23 @@ public class Participant {
         this.email = email;
     }
 
+    public Participant(String name) {
+        this.name = name;
+    }
+
     public String getName() {
         return name;
     }
 
     public String getEmail() {
         return email;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

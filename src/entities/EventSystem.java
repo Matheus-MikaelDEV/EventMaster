@@ -17,6 +17,8 @@ public class EventSystem {
 
     // Search for an event by name
     public String searchEvent(String name) {
+        boolean found = false;
+
         if (events.isEmpty() || events == null) {
             return "No events found.";
         } else {
@@ -27,10 +29,67 @@ public class EventSystem {
                     for (Participant participant : event.getParticipants()) {
                         result.append(" - ").append(participant.getName()).append(" (").append(participant.getEmail()).append(")\n");
                     }
+                    found = true;
                 }
             }
+
+            if (!found) {
+                return "Event not found.";
+            }
+
             return result.toString();
         }
+    }
+
+    // Edit an existing event
+    public boolean editEvent(Event event) {
+        if (events != null && !events.isEmpty()) {
+            for (int i = 0; i < events.size(); i++) {
+                Event existing = events.get(i);
+                if (existing.getName().equalsIgnoreCase(event.getName())) {
+                    existing.setLocation(event.getLocation());
+                    existing.setDate(event.getDate());
+                    existing.setEventType(event.getEventType());
+                    existing.setDescription(event.getDescription());
+                    return true;
+                }
+            }
+        }
+        System.out.println("Event not found.");
+        return false;
+    }
+
+    // Edit the content of participant event
+    public boolean editParticipant(Event event, Participant newParticipant, Participant oldParticipant) {
+        if (events != null && !events.isEmpty()) {
+            for (Event existingEvent : events) {
+                if (existingEvent.getName().equalsIgnoreCase(event.getName())) {
+                    for (Participant existingParticipant : existingEvent.getParticipants()) {
+                        if (existingParticipant.getName().equalsIgnoreCase(oldParticipant.getName())) {
+                            existingParticipant.setName(newParticipant.getName());
+                            existingParticipant.setEmail(newParticipant.getEmail());
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        System.out.println("Participant not found.");
+        return false;
+    }
+
+    // Add a participant to existing event
+    public boolean addParticipantToExistingEvent(Event event, Participant participant) {
+        if (events != null && !events.isEmpty()) {
+            for (Event existingEvent : events) {
+                if (existingEvent.getName().equalsIgnoreCase(event.getName())) {
+                    existingEvent.addParticipant(participant);
+                    return true;
+                }
+            }
+        }
+        System.out.println("Event not found.");
+        return false;
     }
 
     // List all events in the system
