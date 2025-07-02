@@ -8,11 +8,45 @@ public class EventSystem {
     public EventSystem() {
     }
 
+    // Add a new event to the system
     public void addEvent(Event event) {
         if (events == null) {
             events = new ArrayList<>();
         }
         events.add(event);
+    }
+
+    // Remove an event from the system
+    public boolean removeEvent(Event event) {
+        if (events == null || events.isEmpty()) {
+            System.out.println("No events to remove.");
+            return false;
+        }
+
+        boolean removed = events.removeIf(existingEvent -> existingEvent.getName().equalsIgnoreCase(event.getName()));
+
+        if (!removed) {
+            System.out.println("Event not found.");
+        }
+
+        return removed;
+    }
+
+    //Remove a participant from an event
+    public boolean removeParticipant(Event event, Participant participant) {
+        if (events != null && !events.isEmpty()) {
+            for (Event existingEvent : events) {
+                if (existingEvent.getName().equalsIgnoreCase(event.getName())) {
+                    boolean removed = existingEvent.getParticipants().removeIf(existingParticipant -> existingParticipant.getName().equalsIgnoreCase(participant.getName()));
+                    if (!removed) {
+                        System.out.println("Participant not found.");
+                    }
+                    return removed;
+                }
+            }
+        }
+        System.out.println("Event not found.");
+        return false;
     }
 
     // Search for an event by name

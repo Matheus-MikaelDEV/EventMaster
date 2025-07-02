@@ -21,7 +21,7 @@ public class Program {
         do {
             // Display menu options
             System.out.println("Chose an option:");
-            System.out.println("1 - Add Event\n2 - Search Event\n3 - List Events\n4 - Edit Content\n5 - Exit");
+            System.out.println("1 - Add Event\n2 - Search Event\n3 - List Events\n4 - Edit Content\n5 - Remove Event or Participant\n6 - Exit");
             System.out.print("Enter your choice: ");
             option = sc.nextInt();
             sc.nextLine();
@@ -200,6 +200,62 @@ public class Program {
 
                     break;
                 case 5:
+                    int removeOption = 0;
+                    //Remove Event or Participant
+                    System.out.println("Removing an event or participant.");
+
+                    do {
+                        System.out.println("1 - Remove Event\n2 - Remove Participant\n3 - Back to Edit Menu");
+                        System.out.print("Enter your choice: ");
+                        removeOption = sc.nextInt();
+                        sc.nextLine();
+
+                        switch (removeOption) {
+                            case 1:
+                                //Remove Event
+                                System.out.print("Enter the name of the event to remove: ");
+                                String eventNameToRemove = sc.nextLine();
+
+                                Event eventToRemove = new Event(eventNameToRemove);
+
+                                eventSystem.removeEvent(eventToRemove);
+
+                                if (eventSystem.removeEvent(eventToRemove)) {
+                                    System.out.println("Event removed successfully!");
+                                } else {
+                                    System.out.println("Failed to remove event. Event not found.");
+                                }
+                                break;
+                            case 2:
+                                //Remove Participant
+                                System.out.print("Enter the name of the event for the participant to remove: ");
+                                String eventNameForParticipantToRemove = sc.nextLine();
+
+                                Event eventForParticipantToRemove = new Event(eventNameForParticipantToRemove);
+
+                                System.out.print("Enter the name of the participant to remove: ");
+                                String participantNameToRemove = sc.nextLine();
+
+                                Participant participantToRemove = new Participant(participantNameToRemove);
+
+                                if (eventSystem.removeParticipant(eventForParticipantToRemove, participantToRemove)) {
+                                    System.out.println("Participant removed successfully!");
+                                } else {
+                                    System.out.println("Failed to remove participant. Participant not found.");
+                                }
+                                break;
+                            case 3:
+                                // Back to Edit Menu
+                                System.out.println("Returning to Edit Menu...");
+                                break;
+                            default:
+                                System.out.println("Invalid option. Please try again.");
+                                break;
+                        }
+                    } while (removeOption != 3);
+
+                    System.out.println();
+                case 6:
                     // Exit
                     System.out.println("Exiting the Event Management System. Goodbye!");
                     break;
