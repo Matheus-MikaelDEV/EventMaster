@@ -2,7 +2,7 @@ package application;
 
 import entities.Event;
 import entities.EventSystem;
-import entities.EventType;
+import entities.enums.EventType;
 import entities.Participant;
 
 import java.time.LocalDateTime;

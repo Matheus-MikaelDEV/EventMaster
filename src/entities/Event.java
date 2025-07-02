@@ -1,5 +1,7 @@
 package entities;
 
+import entities.enums.EventType;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
